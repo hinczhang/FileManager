@@ -1,14 +1,11 @@
 <template>
     <div>
-        <el-container>
-            <el-header>
-                <admin-header></admin-header>
-            </el-header>
-            <el-main>
-                <admin-users></admin-users>
-            </el-main>
-            <el-footer>Footer</el-footer>
-        </el-container>
+        <admin-header style="margin-bottom: 10px"></admin-header>
+
+        <admin-users></admin-users>
+
+        <el-footer>Footer</el-footer>
+
     </div>
 </template>
 
@@ -32,3 +29,7 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+
+</style>

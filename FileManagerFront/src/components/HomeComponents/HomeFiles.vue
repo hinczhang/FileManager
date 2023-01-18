@@ -26,7 +26,7 @@
                             label="文件名"
                             sortable>
                             <template slot-scope="scope">
-                                <el-button type="text" size="medium" @click="fileHandle(scope.row)">{{ scope.row.name }}</el-button>
+                                <el-button type="text" size="medium" @click="fileHandle(scope.row)" :disabled="scope.row.name === 'tmp' && paths.length === 1">{{ scope.row.name }}</el-button>
                             </template>
                         </el-table-column>
                         <el-table-column
@@ -52,7 +52,7 @@
                             width="100">
                             <template slot-scope="scope">
                                 <el-button v-if="scope.row.type === 'file'" @click="handleDownload(scope.row)" type="text" size="small">下载</el-button>
-                                <el-button @click="handleDelete(scope.row)" type="text" size="small">删除</el-button>
+                                <el-button @click="handleDelete(scope.row)" type="text" size="small" :disabled="scope.row.name === 'tmp' && paths.length === 1">删除</el-button>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -358,7 +358,7 @@ export default {
     line-height: 40px;
 }
 .box-card{
-    width: 80%;
+    width: 60%;
     margin: 0 auto;
 }
 .clearfix:before,
