@@ -1,15 +1,15 @@
 <template>
     <div>
-        <el-menu style="width: 100%;" mode="horizontal" @select="handleSelect">
-        <el-menu-item index="1">主页</el-menu-item>
-        <el-submenu index="2">
-            <template slot="title">用户选项</template>
-            <el-menu-item @click="changeUserinfoVisible=true" index="2-1">信息</el-menu-item>
-            <el-menu-item @click="changePasswordVisible=true" index="2-2">修改密码</el-menu-item>
-            <el-menu-item @click="logout" index="2-3">登出</el-menu-item>
-        </el-submenu>
-        <el-menu-item index="3" v-if="isAdmin"><router-link to="/admin">管理控制台</router-link></el-menu-item>
-        <el-menu-item index="4"><a href="https://cv.standardserve.org/" target="_blank">作者主页</a></el-menu-item>
+        <el-menu style="width: 100%;" mode="horizontal">
+            <el-menu-item @click="loadMainPage" index="1">主页</el-menu-item>
+            <el-submenu index="2">
+                <template slot="title">用户选项</template>
+                <el-menu-item @click="changeUserinfoVisible=true" index="2-1">信息</el-menu-item>
+                <el-menu-item @click="changePasswordVisible=true" index="2-2">修改密码</el-menu-item>
+                <el-menu-item @click="logout" index="2-3">登出</el-menu-item>
+            </el-submenu>
+            <el-menu-item index="3" v-if="isAdmin"><router-link to="/admin">管理控制台</router-link></el-menu-item>
+            <el-menu-item index="4"><a href="https://cv.standardserve.org/" target="_blank">作者主页</a></el-menu-item>
         </el-menu>
         <el-dialog title="修改密码" :visible.sync="changePasswordVisible" :fullscreen="false">
             <change-password></change-password>
@@ -41,7 +41,12 @@ export default {
         this.isAdmin = localStorage.getItem('isAdmin') === '1'?true:false;
     },
     methods: {
-        handleSelect(){},
+        loadMainPage() {
+            this.$notify.info({
+                title: '提示',
+                message: '当前已是主页'
+            });
+        },
         logout() {
             localStorage.removeItem("Authorization");
             localStorage.removeItem("username");
