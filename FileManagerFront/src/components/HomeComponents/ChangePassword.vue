@@ -5,10 +5,10 @@
                 <el-input v-model="ruleForm.inital" autocomplete="off"></el-input>
             </el-form-item>
             <el-form-item label="新密码" prop="password">
-                <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
+                <el-input type="password" v-model="ruleForm.password" autocomplete="off" :show-password="true"></el-input>
             </el-form-item>
             <el-form-item label="确认密码" prop="checkPass">
-                <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
+                <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off" :show-password="true"></el-input>
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -21,7 +21,6 @@
 <script>
 export default {
     name: 'ChangePassword',
-    props: ["dialogFormVisible", "username", "token"],
     data () {
         var checkinital = (rule, value, callback) => {
             if (!value) {
@@ -76,6 +75,10 @@ export default {
                 ]
             }
         }
+    },
+    created () {
+        this.token = localStorage.getItem('Authorization');
+        this.username = localStorage.getItem('username');
     },
     methods: {
         submitForm(formName) {

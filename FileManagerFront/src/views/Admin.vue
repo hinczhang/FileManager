@@ -1,11 +1,7 @@
 <template>
-    <div>
+    <div class="admin">
         <admin-header style="margin-bottom: 10px"></admin-header>
-
         <admin-users></admin-users>
-
-        <el-footer>Footer</el-footer>
-
     </div>
 </template>
 
@@ -31,5 +27,12 @@ export default {
 </script>
 
 <style scoped>
-
+.admin{
+    background-image: url(../assets/bg/home.jpg);
+    background-repeat: no-repeat, no-repeat;
+    background-size:cover;
+    justify-content:center;  
+    align-items:center;
+    height: 100vh;
+}
 </style>

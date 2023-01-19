@@ -1,22 +1,31 @@
 <template>
     <el-card class="box-card">
     <div slot="header" class="clearfix">
-        <span>Admin</span>
+        <span><p style="font-weight: bold;">当前管理员: {{ this.username }}</p> </span>
         <el-button style="float: right; padding: 3px 0" type="text"><router-link to="/">返回文件管理系统</router-link></el-button>
+    </div>
+    <div>
+        <admin-info></admin-info>
     </div>
 </el-card>
 
 </template>
 
 <script>
+import AdminInfo from './AdminInfo.vue';
+
 export default {
     name: 'AdminHeader',
+    components: {AdminInfo},
     data () {
         return {
             msg: 'Welcome to Your Vue.js App',
-
+            username: ''
         }
     },
+    created() {
+        this.username = localStorage.getItem("username");
+    }
     
 }
 </script>

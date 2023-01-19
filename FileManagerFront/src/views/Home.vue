@@ -1,13 +1,12 @@
 <template>
-    <div>
+    <div class="home">
         <el-container>
-            <el-header>
+            <el-header style="padding: 0;">
                 <home-header></home-header>
             </el-header>
             <el-main>
                 <home-files :username="username" :token="token"></home-files>
             </el-main>
-            <el-footer>Footer</el-footer>
         </el-container>
     </div>
 </template>
@@ -32,3 +31,15 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.home{
+    background-image: url(../assets/bg/home.jpg);
+    background-repeat: no-repeat, no-repeat;
+    background-size:cover;
+    justify-content:center;  
+    align-items:center;
+    height: 100vh;
+}
+
+</style>

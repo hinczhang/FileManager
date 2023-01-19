@@ -1,67 +1,71 @@
 <template>
     <el-card class="box-card">
-    <div slot="header" class="clearfix">
-        <span>用户管理</span>
-    </div>
-    <div>
-        <el-table
-            :data="users"
-            style="width: 80%; margin: 0 auto">
-            <el-table-column
-                prop="username"
-                label="用户名"
-                sortable>
-            </el-table-column>
-            <el-table-column
-                label="管理员权限"
-                sortable>
-                <template slot-scope="scope">
-                    <el-switch
-                        v-model="scope.row.isAdmin"
-                        active-color="#13ce66"
-                        inactive-color="#ff4949"
-                        @change="changeAdmin(scope.row)"
-                        :disabled="scope.row.username==='hinczhang'">
-                    </el-switch>
-                </template>
-            </el-table-column>
-            <el-table-column
-                label="是否激活"
-                sortable>
-                <template slot-scope="scope">
-                    <el-switch
-                        v-model="scope.row.isValid"
-                        active-color="#13ce66"
-                        inactive-color="#ff4949"
-                        @change="changeValid(scope.row)"
-                        :disabled="scope.row.username==='hinczhang'">
-                    </el-switch>
-                </template>
-            </el-table-column>
-            <el-table-column
-                prop="current"
-                label="占用存储"
-                sortable>
-            </el-table-column>
-            <el-table-column
-                label="总存储 (GB)"
-                sortable>
-                <template slot-scope="scope">
-                    <el-input-number v-model="scope.row.limit" size="mini" @change="limitChange(scope.row)" :min="0.5" :max="60" label="存储分配"></el-input-number>
-                </template>
-            </el-table-column>
-            <el-table-column
-                fixed="right"
-                label="操作"
-                width="100">
-                <template slot-scope="scope">
-                    <el-button @click="handleDelete(scope.row)" type="text" size="small" :disabled="scope.row.username==='hinczhang'">删除</el-button>
-                </template>
-            </el-table-column>
-        </el-table>
-    </div>
-</el-card>
-
+        <div slot="header" class="clearfix">
+            <span>用户管理</span>
+        </div>
+        <div>
+            <el-table
+                :data="users"
+                style="width: 90%; margin: 0 auto">
+                <el-table-column
+                    prop="username"
+                    label="用户名"
+                    sortable>
+                </el-table-column>
+                <el-table-column
+                    label="管理员权限"
+                    sortable>
+                    <template slot-scope="scope">
+                        <el-switch
+                            v-model="scope.row.isAdmin"
+                            active-color="#13ce66"
+                            inactive-color="#ff4949"
+                            @change="changeAdmin(scope.row)"
+                            :disabled="scope.row.username==='hinczhang'||scope.row.username===username">
+                        </el-switch>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    label="是否激活"
+                    sortable>
+                    <template slot-scope="scope">
+                        <el-switch
+                            v-model="scope.row.isValid"
+                            active-color="#13ce66"
+                            inactive-color="#ff4949"
+                            @change="changeValid(scope.row)"
+                            :disabled="scope.row.username==='hinczhang'||scope.row.username===username">
+                        </el-switch>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    prop="password"
+                    label="密码"
+                    sortable>
+                </el-table-column>
+                <el-table-column
+                    prop="current"
+                    label="占用存储"
+                    sortable>
+                </el-table-column>
+                <el-table-column
+                    label="总存储 (GB)"
+                    sortable>
+                    <template slot-scope="scope">
+                        <el-input-number v-model="scope.row.limit" size="mini" @change="limitChange(scope.row)" :min="0" :max="60" label="存储分配"></el-input-number>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                    fixed="right"
+                    label="操作"
+                    width="100">
+                    <template slot-scope="scope">
+                        <el-button @click="handleDelete(scope.row)" type="text" size="small" :disabled="scope.row.username==='hinczhang'||scope.row.username===username">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </div>
+    </el-card>
 </template>
 
 <script>

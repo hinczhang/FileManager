@@ -14,12 +14,16 @@
                     </div>
                     <el-table
                         :data="files"
-                        style="width: 80%; margin: 0 auto">
+                        style="width: 95%; margin: 0 auto">
                         <el-table-column
                             width = "50">
                             <template slot-scope="scope">
-                                <i v-if="scope.row.type === 'file'" class="el-icon-tickets"></i>
-                                <i v-if="scope.row.type === 'dir'" class="el-icon-folder"></i>
+                                <el-tag size="small" v-if="scope.row.type === 'file'">
+                                    <i class="el-icon-tickets"></i>
+                                </el-tag>
+                                <el-tag type="success" size="small" v-if="scope.row.type === 'dir'">
+                                    <i class="el-icon-folder"></i>
+                                </el-tag>
                             </template>
                         </el-table-column>
                         <el-table-column
@@ -56,18 +60,20 @@
                             </template>
                         </el-table-column>
                     </el-table>
+                    <el-divider></el-divider>
+                    <el-row>
+                        <el-col :span="12">
+                            <input v-show="false" ref="fileRef" type="file" @change="fileChange">
+                            <el-button @click="handleUpload" round>上传文件 <i class="el-icon-upload el-icon--right"></i></el-button>
+                        </el-col>
+                        <el-col :span="12">
+                            <el-button @click="createDir" round>新建文件夹 <i class="el-icon-circle-plus el-icon--right"></i></el-button>
+                        </el-col>
+                    </el-row>
                 </el-card>
             </el-main>
             <el-footer>
-                <el-row>
-                <el-col :span="12">
-                    <input v-show="false" ref="fileRef" type="file" @change="fileChange">
-                    <el-button @click="handleUpload" round>上传文件 <i class="el-icon-upload el-icon--right"></i></el-button>
-                </el-col>
-                <el-col :span="12">
-                    <el-button @click="createDir" round>新建文件夹 <i class="el-icon-circle-plus el-icon--right"></i></el-button>
-                </el-col>
-            </el-row>
+                
             </el-footer>
         </el-container>
     </div>
@@ -358,7 +364,7 @@ export default {
     line-height: 40px;
 }
 .box-card{
-    width: 60%;
+    width: 90%;
     margin: 0 auto;
 }
 .clearfix:before,
