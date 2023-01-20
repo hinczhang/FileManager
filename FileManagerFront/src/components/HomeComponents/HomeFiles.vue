@@ -30,7 +30,9 @@
                             label="文件名"
                             sortable>
                             <template slot-scope="scope">
-                                <el-button type="text" size="medium" @click="fileHandle(scope.row)" :disabled="scope.row.name === 'tmp' && paths.length === 1">{{ scope.row.name }}</el-button>
+                                <el-tooltip class="item" effect="light" :content="scope.row.name" placement="bottom">
+                                    <el-button type="text" size="medium" @click="fileHandle(scope.row)" :disabled="scope.row.name === 'tmp' && paths.length === 1">{{ scope.row.name }}</el-button>
+                                </el-tooltip>
                             </template>
                         </el-table-column>
                         <el-table-column
