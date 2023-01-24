@@ -66,7 +66,6 @@ export default {
         }
     },
     methods: {
-        ...mapMutations(['changeLogin', 'changeUsername']),
         submitForm(formName) {
             var _this = this;
             this.$refs[formName].validate((valid) => {

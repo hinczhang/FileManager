@@ -11,7 +11,7 @@ import AdminUsers from '../components/AdminComponents/AdminUsers.vue';
 
 export default {
     name: 'Admin',
-    components: {AdminHeader, AdminUsers},
+    components: { AdminHeader, AdminUsers },
     data () {
         return {
             msg: 'Welcome to Your Vue.js App',
