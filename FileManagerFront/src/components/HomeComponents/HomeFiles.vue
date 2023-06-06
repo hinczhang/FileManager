@@ -156,12 +156,15 @@ export default {
                 }
             })
             .then((res) => {
-                const blobUrl = window.URL.createObjectURL(res.data)
-                const a = document.createElement('a')
-                a.style.display = 'none'
-                a.download = row.name
-                a.href = blobUrl
-                a.click()
+                const blobUrl = window.URL.createObjectURL(res.data);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.download = row.name;
+                a.href = blobUrl;
+                const blob = new Blob([res.data], { type: 'application/zip' });
+                let link = window.URL.createObjectURL(blob);
+                console.log(link);
+                a.click();
             })
             .catch((err) => {
                 console.log(err);
@@ -213,7 +216,6 @@ export default {
             });
         },
         fileHandle(row){
-            console.log(row)
             if(row.type === 'dir'){
                 this.paths.push(row.name);
                 var path = this.getCurrentPath();
@@ -231,7 +233,7 @@ export default {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 inputPattern: /^[A-Za-z0-9]+$/,
-                inputErrorMessage: '请勿输入特殊符号和空格'
+                inputErrorMessage: '请勿输入特殊符号和空格 (建议只用英文大小字符)'
             }).then(({ value }) => {
                 this.$axios({
                     method: 'post',
@@ -298,6 +300,14 @@ export default {
                 return;
             }
             const rawFile = files[0];
+            if(rawFile.size > 1024*1024*100) {
+                this.$message({
+                    showClose: true,
+                    message: '文件大小不能超过100MB',
+                    type: 'warning'
+                });
+                return;
+            }
             var path = this.getCurrentPath();
             let formData = new FormData();
             formData.append("files", rawFile);

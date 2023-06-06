@@ -23,7 +23,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 ### hostory mode
 In `router/index.js`, add `mode: 'hostory'`.  
 In the nginx confinguration file, add:  
-'''
+```
 server {
     listen 80;
     server_name xx;
@@ -35,4 +35,20 @@ server {
     }
    
 }
-'''
+```
+
+### nginx configuration
+```
+server {
+    listen 80;
+    server_name xx;
+    client_max_body_size 100M; # please keep this value!!! as the backend server will use this value to limit the upload file size; meanwhile the frontend, 
+    # HomeFiles.vue also use this value to limit the file size (in an if-else sentence).
+    location / {
+        root xx;
+        index index.html index.htm;
+        try_files $uri $uri/ /index.html;
+    }
+   
+}
+```

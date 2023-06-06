@@ -97,7 +97,6 @@ export default {
                         }
                     })
                     .then((res) => {
-                        console.log(res.data)
                         if(res.data.status === 0){
                             _this.$message({
                                 showClose: true,
