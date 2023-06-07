@@ -75,8 +75,17 @@
                 </el-card>
             </el-main>
             <el-footer>
-                
             </el-footer>
+            <el-dialog
+                title="链接共享（默认有效期为7天）"
+                :visible.sync="dialogVisible"
+                width="30%">
+                <div>
+                <el-input v-model="share_link" disabled>
+                    <el-button slot="append" icon="el-icon-document-copy" @click="copyLink"></el-button>
+                </el-input>
+                </div>
+            </el-dialog>
         </el-container>
     </div>
 </template>
@@ -90,7 +99,9 @@ export default {
             msg: 'Welcome to Your Vue.js App',
             paths: [],
             fileList: [],
-            files: []
+            files: [],
+            dialogVisible: false,
+            share_link: ''
         }
     },
     mounted () {
@@ -220,6 +231,30 @@ export default {
                 this.paths.push(row.name);
                 var path = this.getCurrentPath();
                 this.loadingFiles(path);
+            } else {
+                var file_path = this.getCurrentPath() + '/' + row.name;
+                this.$axios({
+                    method: 'post',
+                    url: '/share',
+                    data: {
+                        username: this.username,
+                        token: this.token,
+                        path: file_path
+                    }
+                })
+                .then((res) => {
+                    if(res.data.status === 0){
+                        var link = 'https://fileapi.standardserve.org/api/share?token=' + res.data.token;
+                        this.dialogVisible = true;
+                        this.share_link = link;
+                    } else {
+                        this.$message({
+                            showClose: true,
+                            message: '分享失败！',
+                            type: 'error'
+                        });
+                    }
+                })
             }
         },
         menuHandle(index, item){
@@ -358,7 +393,15 @@ export default {
 
         },
         handleUpload(){
-            this.$refs.fileRef.dispatchEvent(new MouseEvent('click'))
+            this.$refs.fileRef.dispatchEvent(new MouseEvent('click'));
+        },
+        copyLink() {
+            navigator.clipboard.writeText(this.share_link);
+            this.$message({
+                showClose: true,
+                message: '复制成功！',
+                type: 'success'
+            });
         }
     }
 }
